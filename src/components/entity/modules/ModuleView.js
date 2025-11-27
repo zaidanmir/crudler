@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import FullWidthImage from 'react-native-fullwidth-image';
+import { Image } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import { Button, ButtonTray } from '../../UI/Button';
 
