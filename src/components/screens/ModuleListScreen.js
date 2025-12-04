@@ -19,6 +19,11 @@ const ModuleListScreen = ({ navigation }) => {
 
   const handleAdd = (module) => setModules( [...modules, module] );  
 
+  const handleModify = (updateModule) => setModules(
+    
+    modules.map((module) => (module.ModuleID === updatedModule.ModuleID) ? updateModule : module)
+  );
+
   const onDelete = (module) => {
     handleDelete(module);
     navigation.goBack();
@@ -29,7 +34,12 @@ const ModuleListScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const gotoViewScreen = (module) => navigation.navigate('ModuleViewScreen', { module, onDelete });
+  const onModify = (module) => {
+    handleModify(module);
+    navigation.replace('ModuleViewScreen', {module, onDelete, onModify });
+  };
+
+  const gotoViewScreen = (module) => navigation.navigate('ModuleViewScreen', { module, onDelete, onModify });
   const gotoAddScreen = () => navigation.navigate('ModuleAddScreen', {onAdd});
 
   // View --------------------------------------

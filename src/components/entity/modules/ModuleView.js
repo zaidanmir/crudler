@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import { Button, ButtonTray } from '../../UI/Button';
 
-const ModuleView = ({ module, onDelete }) => {
+const ModuleView = ({ module, onDelete, onModify }) => {
   // Initialisations ---------------------------
   // State -------------------------------------
   // Handlers ----------------------------------
@@ -37,7 +37,7 @@ const ModuleView = ({ module, onDelete }) => {
       </View>
 
       <ButtonTray>
-        <Button icon={<Icons.Edit />} label="Modify" />
+        <Button icon={<Icons.Edit />} label="Modify"  onClick={onModify} />
         <Button
           icon={<Icons.Delete />}
           label="Delete" onClick={requestDelete}

@@ -67,7 +67,6 @@ const InputSelect = ({label, prompt, options, value, onChange}) => {
     );
 };
   
-  
 
 // Compose components
 Form.InputText = InputText;

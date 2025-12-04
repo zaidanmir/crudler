@@ -5,7 +5,7 @@ import ModuleForm from '../entity/modules/ModuleForm';
 
 
 
-const ModuleAddScreen = (navigation, route) => {
+const ModuleAddScreen = ({ navigation, route }) => {
   // Initialisations -------------------------------
   const { onAdd } = route.params;
 
@@ -13,8 +13,6 @@ const ModuleAddScreen = (navigation, route) => {
   // Handlers --------------------------------------
 
   const handleCancel = navigation.goBack;
-
-
 
   // View ------------------------------------------
   return (
