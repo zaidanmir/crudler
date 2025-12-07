@@ -1,29 +1,51 @@
-import { StyleSheet, Text, View } from 'react-native';
-import FullWidthImage from 'react-native-fullwidth-image';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'react-native';
+import Icons from '../../UI/Icons.js';
+import { Button, ButtonTray } from '../../UI/Button';
 
-const ModuleView = ({ navigate, route }) => {
+const ModuleView = ({ module, onDelete, onModify }) => {
   // Initialisations ---------------------------
-  const { module } = route.params;
-
   // State -------------------------------------
   // Handlers ----------------------------------
+
+  const handleDelete = () => onDelete(module);
+
+  const requestDelete = () =>
+    Alert.alert(
+      'Delete warning',
+      `Are you sure that you want to delete module ${module.ModuleCode} ${module.ModuleName}`,
+      [
+        { text: 'Cancel' },
+        { text: 'Delete', onPress: handleDelete },
+      ]
+    );
+
   // View --------------------------------------
   return (
-    <Screen>
-      <View style={styles.container}>
-        <FullWidthImage source={{ uri: module.ModuleImage }} style={styles.image} />
-        <View style={styles.infoTray}>
-          <Text style={styles.boldText}>
-            {module.ModuleCode} {module.ModuleName}
-          </Text>
-          <Text style={styles.text}>Level {module.ModuleLevel}</Text>
-          <Text style={styles.text}>
-            {module.ModuleLeaderName}
-            <Text style={styles.dimText}>(Module Leader)</Text>
-          </Text>
-        </View>
+    <View style={styles.container}>
+      <FullWidthImage source={{ uri: module.ModuleImage }} style={styles.image} />
+
+      <View style={styles.infoTray}>
+        <Text style={styles.boldText}>
+          {module.ModuleCode} {module.ModuleName}
+        </Text>
+        <Text style={styles.text}>Level {module.ModuleLevel}</Text>
+        <Text style={styles.text}>
+          {module.ModuleLeaderName}{' '}
+          <Text style={styles.dimText}>(Module Leader)</Text>
+        </Text>
       </View>
-    </Screen>
+
+      <ButtonTray>
+        <Button icon={<Icons.Edit />} label="Modify"  onClick={onModify} />
+        <Button
+          icon={<Icons.Delete />}
+          label="Delete" onClick={requestDelete}
+          styleButton={{ backgroundColor: 'mistyrose' }}
+          styleLabel={{ color: 'red' }}
+        />
+      </ButtonTray>
+    </View>
   );
 };
 

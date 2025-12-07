@@ -75,3 +75,5 @@ const modules = [
         'https://images.freeimages.com/images/small-previews/4e8/sala-de-parto-03-1432033.jpg',
     },
   ];
+
+  export default modules;
