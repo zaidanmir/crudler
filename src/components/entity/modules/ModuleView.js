@@ -22,7 +22,7 @@ const ModuleView = ({ module, onDelete, onModify }) => {
   // View --------------------------------------
   return (
     <View style={styles.container}>
-      <Image source={{ uri: module.ModuleImage }} style={styles.image} />
+      <Image source={{ uri: module.ModuleImageURL }} style={styles.image} />
 
       <View style={styles.infoTray}>
         <Text style={styles.boldText}>
