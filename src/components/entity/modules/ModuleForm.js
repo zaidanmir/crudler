@@ -14,7 +14,7 @@ const defaultModule = {
   };
 
 
-const ModuleForm = ( originalModule, onSubmit, onCancel ) => {
+const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   
   // Initialisations -------------------------------
 
@@ -32,7 +32,7 @@ const ModuleForm = ( originalModule, onSubmit, onCancel ) => {
 
   // State -----------------------------------------
 
-  const [module,setModule] = useState(originalModule || defaultModule)
+  const [module, setModule] = useState(originalModule || defaultModule)
 
 
   // Handlers --------------------------------------

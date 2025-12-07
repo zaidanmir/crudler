@@ -19,10 +19,12 @@ const ModuleListScreen = ({ navigation }) => {
 
   const handleAdd = (module) => setModules( [...modules, module] );  
 
-  const handleModify = (updateModule) => setModules(
-    
-    modules.map((module) => (module.ModuleID === updatedModule.ModuleID) ? updateModule : module)
-  );
+  const handleModify = (updatedModule) =>
+    setModules(
+      modules.map((module) =>
+        module.ModuleID === updatedModule.ModuleID ? updatedModule : module
+      )
+    );
 
   const onDelete = (module) => {
     handleDelete(module);
