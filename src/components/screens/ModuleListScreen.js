@@ -1,32 +1,20 @@
-import { useState, useEffect } from 'react';
 import { LogBox, StyleSheet, Text } from 'react-native';
-import Screen from '../layout/Screen';
-import ModuleList from '../entity/modules/ModuleList.js';
-import API from '../API/API.js';
-import RenderCount from '..UI/RenderCount.js';
+import useLoad from '../API/useLoad';
+import RenderCount from '../UI/RenderCount.js';
 import Icons from '../UI/Icons.js';
 import { Button, ButtonTray } from '../UI/Button.js';
 import ModuleList from '../entity/modules/ModuleList.js';
+import Screen from '../layout/Screen';
 
 
 const ModuleListScreen = ({ navigation }) => {
   // Initialisations ---------------------------
-  ignoreWarnings();
+  LogBox.ignoreLogs(["test"]);
   const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
 
   // State -------------------------------------
-  const [modules, setModules] = useState([]);
-  const [isLoading, setIsloading] = useState(true);
 
-  const loadModules =  async (endpoint) => {
-    const response =  await API.get(endpoint);
-    setIsloading(false);
-    if(response.isSuccess) setModules(response.result);
-  };
-
-  useEffect(() => {
-    loadModules(modulesEndpoint);
-  }, []);
+  const [modules, setModules, isLoading, loadModules] = useLoad(modulesEndpoint);
 
   // Handlers ----------------------------------
   const handleDelete = (module) =>

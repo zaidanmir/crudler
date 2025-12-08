@@ -41,7 +41,7 @@ const InputText = ({label, value, onChange}) => {
     );
 };
 
-const InputSelect = ({label, prompt, options, value, onChange}) => {
+const InputSelect = ({ label, prompt, options, value, onChange }) => {
     // Initialisations ---------------------------
     // State -------------------------------------
     // Handlers ----------------------------------
