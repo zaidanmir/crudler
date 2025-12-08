@@ -29,7 +29,6 @@ const ModuleListScreen = ({ navigation }) => {
     }
   };
   
-  
   const onDelete = async (module) => {
     const deleteEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
     const result = await API.delete(deleteEndpoint, module);
@@ -41,9 +40,6 @@ const ModuleListScreen = ({ navigation }) => {
     }
   };
   
-
-
-
   const onModify = async (module) => {
     const putEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
     const result = await API.put(putEndpoint, module);
