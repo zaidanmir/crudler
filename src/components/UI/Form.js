@@ -41,7 +41,7 @@ const InputText = ({label, value, onChange}) => {
     );
 };
 
-const InputSelect = ({label, prompt, options, value, onChange}) => {
+const InputSelect = ({ label, prompt, options, value, onChange }) => {
     // Initialisations ---------------------------
     // State -------------------------------------
     // Handlers ----------------------------------
@@ -58,7 +58,9 @@ const InputSelect = ({label, prompt, options, value, onChange}) => {
         
         <Picker.Item value={null} label={prompt} style={styles.itemPickerStyle} />
         {
-            options.map( (option,index) => <Picker.Item key={index} value={option.value} label={PageTransitionEvent.label} />)
+            options.map((option, index) => (
+                <Picker.Item key={index} value={option.value} label={option.label} />
+            ))
         }
 
 

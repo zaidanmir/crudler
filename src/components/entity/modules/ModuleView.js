@@ -1,5 +1,4 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native';
+import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import { Button, ButtonTray } from '../../UI/Button';
 
@@ -23,13 +22,14 @@ const ModuleView = ({ module, onDelete, onModify }) => {
   // View --------------------------------------
   return (
     <View style={styles.container}>
-      <FullWidthImage source={{ uri: module.ModuleImage }} style={styles.image} />
+      <Image source={{ uri: module.ModuleImageURL }} style={styles.image} />
 
       <View style={styles.infoTray}>
         <Text style={styles.boldText}>
           {module.ModuleCode} {module.ModuleName}
         </Text>
         <Text style={styles.text}>Level {module.ModuleLevel}</Text>
+        <Text style={styles.text}>Cohort {module.ModuleYearName}</Text>
         <Text style={styles.text}>
           {module.ModuleLeaderName}{' '}
           <Text style={styles.dimText}>(Module Leader)</Text>
@@ -50,6 +50,14 @@ const ModuleView = ({ module, onDelete, onModify }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+  },
   infoTray: {
     gap: 5,
   },
