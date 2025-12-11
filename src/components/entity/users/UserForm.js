@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import useLoad from '../../API/useLoad';
 import Form from '../../UI/Form';
 import Icons from '../../UI/Icons';
 
@@ -6,46 +7,70 @@ const defaultUser = {
   UserID: null,
   UserFirstname: '',
   UserLastname: '',
-  UserUsertypeName: 'Student',
+  UserUsertypeID: null,
+  UserUsertypeName: '',
   UserEmail: '',
   UserImageURL: '',
-  UserType: 'Student',
-  UserYear: '',
+  UserYearID: null,
+  UserLevel: null,
+  UserRegistered: 0,
+  UserPassword: '',
 };
 
-const roles = [
-  { value: 'Student', label: 'Student' },
-  { value: 'Staff', label: 'Staff' },
+const levelOptions = [
+    { value: 3, label: '3 (Foundation)' },
+    { value: 4, label: '4 (First year)' },
+    { value: 5, label: '5 (Second year)' },
+    { value: 6, label: '6 (Final year)' },
+    { value: 7, label: '7 (Masters)' },
 ];
+
+const registrationOptions = [
+    { value: 0, label: 'Not registered' },
+    { value: 1, label: 'Registered' },
+  ];
+  
+  const usertypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
+  const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
 
 const UserForm = ({ initialUser, submitLabel = 'Add', onSubmit, onCancel }) => {
   const initialState = useMemo(() => {
-    if (initialUser) {
-        return { ...initialUser };
-    }
+    if (initialUser) return { ...initialUser };
     return { ...defaultUser, UserID: Date.now() };
   }, [initialUser]);
 
   const [user, setUser] = useState(initialState);
+  const [usertypes] = useLoad(usertypesEndpoint);
+  const [years, , isYearsLoading] = useLoad(yearsEndpoint);
 
   const handleChange = (field, value) => {
-    if (field === 'UserType' && value !== 'Student') {
-      setUser({ ...user, [field]: value, UserYear: null });
-    } else {
-      setUser({ ...user, [field]: value });
-    }
+    const numericFields = ['UserUsertypeID', 'UserYearID', 'UserLevel', 'UserRegistered'];
+    const parsedValue = numericFields.includes(field) && value !== null ? Number(value) : value;
+    setUser((current) => ({ ...current, [field]: parsedValue }));
   };
 
-  const handleSubmit = () => {
-    const preparedUser = {
-      ...user,
-      UserYear: user.UserType === 'Student' ? user.UserYear || null : null,
-    };
-
-    onSubmit(preparedUser);
+  const handleUsertypeChange = (value) => {
+    const selectedType = usertypes.find((type) => type.UsertypeID === value);
+    handleChange('UserUsertypeID', value);
+    setUser((current) => ({
+      ...current,
+      UserUsertypeName: selectedType ? selectedType.UsertypeName : '',
+    }));
   };
+
+  const handleSubmit = () => onSubmit(user);
 
   const icon = submitLabel === 'Modify' ? <Icons.Edit /> : <Icons.Add />;
+
+  const usertypeOptions = usertypes.map((type) => ({
+    value: type.UsertypeID,
+    label: type.UsertypeName,
+  }));
+
+  const yearOptions = years.map((year) => ({
+    value: year.YearID,
+    label: year.YearName,
+  }));
 
   return (
     <Form onSubmit={handleSubmit} onCancel={onCancel} submitLabel={submitLabel} submitIcon={icon}>
@@ -71,18 +96,38 @@ const UserForm = ({ initialUser, submitLabel = 'Add', onSubmit, onCancel }) => {
       />
       <Form.InputSelect
         label="User type"
-        prompt="Select user type ..."
-        options={roles}
-        value={user.UserType}
-        onChange={(value) => handleChange('UserType', value)}
+        options={usertypeOptions}
+        value={user.UserUsertypeID}
+        onChange={handleUsertypeChange}
       />
-      {user.UserType === 'Student' && (
-        <Form.InputText
-          label="Academic year"
-          value={user.UserYear ?? ''}
-          onChange={(value) => handleChange('UserYear', value)}
-        />
-      )}
+      <Form.InputSelect
+        label="Academic year"
+        prompt="Select academic year ..."
+        options={yearOptions}
+        value={user.UserYearID}
+        onChange={(value) => handleChange('UserYearID', value)}
+        isLoading={isYearsLoading}
+      />
+      <Form.InputSelect
+        label="User level"
+        prompt="Select user level ..."
+        options={levelOptions}
+        value={user.UserLevel}
+        onChange={(value) => handleChange('UserLevel', value)}
+      />
+      <Form.InputSelect
+        label="Registration status (optional)"
+        prompt="Select registration status ..."
+        options={registrationOptions}
+        value={user.UserRegistered}
+        onChange={(value) => handleChange('UserRegistered', value)}
+      />
+      <Form.InputText
+        label="Password (optional)"
+        value={user.UserPassword}
+        onChange={(value) => handleChange('UserPassword', value)}
+        secureTextEntry
+      />
     </Form>
   );
 };

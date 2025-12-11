@@ -14,6 +14,10 @@ const UserView = ({ user, onDelete, onModify }) => {
           { text: 'Delete', onPress: handleDelete },
         ]
       );
+  
+    const userTypeLabel = user.UserUsertypeName || user.UserUsertypeID;
+    const yearLabel = user.UserYearName || user.YearName || user.UserYearID;
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: user.UserImageURL }} style={styles.image} />
@@ -23,9 +27,12 @@ const UserView = ({ user, onDelete, onModify }) => {
         </Text>
         <Text style={styles.text}>{user.UserEmail}</Text>
         <Text style={styles.text}>
-          {user.UserType}{' '}
-          {user.UserYear && <Text style={styles.dimText}>({user.UserYear})</Text>}
+          {userTypeLabel} <Text style={styles.dimText}>Level {user.UserLevel}</Text>
         </Text>
+        {yearLabel ? <Text style={styles.text}>Year: {yearLabel}</Text> : null}
+        {user.UserRegistered !== undefined && (
+          <Text style={styles.text}>Registered: {user.UserRegistered ? 'Yes' : 'No'}</Text>
+        )}
     </View>
       <ButtonTray>
       <Button icon={<Icons.Edit />} label="Modify" onClick={onModify} />

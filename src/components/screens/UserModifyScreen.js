@@ -7,7 +7,6 @@ const UserModifyScreen = ({ navigation, route }) => {
 
   const handleSubmit = (updated) => {
     onModify(updated);
-    navigation.goBack();
   };
 
   const handleCancel = () => navigation.goBack();

@@ -5,7 +5,7 @@ const UserItem = ({ user, onSelect }) => (
   <Selector pressedStyle={styles.pressedItem} onPress={() => onSelect(user)}>
     <View style={styles.item}>
       <Text style={styles.text}>
-        {user.UserFirstname} {user.UserLastname} ({user.UserType})
+        {user.UserFirstname} {user.UserLastname} ({user.UserUsertypeName})
       </Text>
     </View>
   </Selector>
