@@ -98,16 +98,12 @@ const ModuleListScreen = ({ navigation }) => {
   return (
     <Screen>
       <Text>{favourites.map((favourite) => `$(favourite), `)}</Text>
-      <RenderCount />
-      {loggedinUser && <Text style={styles.welcome}>Welcome {loggedinUser.UserFirstname}</Text>}
-      <RenderCount />
       <ButtonTray>
         <Button label="Add" icon={<Icons.Add />} onClick={gotoAddScreen} />
       </ButtonTray>
       {
       isLoading && (
-        <View style={styles.loading}>
-        
+        <View style={styles.loading}>    
         <Text>
           Retrieving records from {modulesEndpoint} ...
         </Text>
