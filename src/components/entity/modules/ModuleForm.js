@@ -41,7 +41,6 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   const [leaders, , isLeadersLoading] = useLoad(staffEndpoint);
 
 
-
   // Handlers --------------------------------------
 
 
@@ -49,14 +48,12 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   const handleSubmit = () => onSubmit(module);
 
 
-
-
   // View ------------------------------------------
     const submitLabel = originalModule ? 'Modify' : 'Add';
     const submitIcon = originalModule ? <Icons.Edit /> : <Icons.Add />;
 
     const cohorts = years.map((year) => ({ value: year.YearID, label: year.YearName }));
-    const staff = leaders.map((leader) = ({ value: leader.UserID, label: `${leader.UserFirstname} ${leader.UserLastname}` }));
+    const staff = leaders.map((leader) => ({ value: leader.UserID, label: `${leader.UserFirstname} ${leader.UserLastname}` }));
 
     return (
 
@@ -90,7 +87,7 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
             <Form.InputSelect
                 label="Module cohort"
                 prompt="Select module cohort ..."
-                options={cohort}
+                options={cohorts}
                 value={module.ModuleYearID}
                 onChange={(value) => handleChange('ModuleYearID', value)}
                 isLoading={isYearsLoading}
