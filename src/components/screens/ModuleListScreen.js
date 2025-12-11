@@ -93,7 +93,6 @@ const ModuleListScreen = ({ navigation }) => {
   // View --------------------------------------
   return (
     <Screen>
-      <Text>{favourites.map((favourite) => `$(favourite), `)}</Text>
       <ButtonTray>
         <Button label="Add" icon={<Icons.Add />} onClick={gotoAddScreen} />
       </ButtonTray>
