@@ -7,6 +7,10 @@ const defaultUser = {
   UserFirstname: '',
   UserLastname: '',
   UserUsertypeName: 'Student',
+  UserEmail: '',
+  UserImageURL: '',
+  UserType: 'Student',
+  UserYear: '',
 };
 
 const roles = [
@@ -17,15 +21,29 @@ const roles = [
 const UserForm = ({ initialUser, submitLabel = 'Add', onSubmit, onCancel }) => {
   const initialState = useMemo(() => {
     if (initialUser) {
-      return initialUser;
+        return { ...initialUser };
     }
-    return { ...defaultUser, UserID: `u-${Date.now()}` };
+    return { ...defaultUser, UserID: Date.now() };
   }, [initialUser]);
 
   const [user, setUser] = useState(initialState);
 
-  const handleChange = (field, value) => setUser({ ...user, [field]: value });
-  const handleSubmit = () => onSubmit(user);
+  const handleChange = (field, value) => {
+    if (field === 'UserType' && value !== 'Student') {
+      setUser({ ...user, [field]: value, UserYear: null });
+    } else {
+      setUser({ ...user, [field]: value });
+    }
+  };
+
+  const handleSubmit = () => {
+    const preparedUser = {
+      ...user,
+      UserYear: user.UserType === 'Student' ? user.UserYear || null : null,
+    };
+
+    onSubmit(preparedUser);
+  };
 
   const icon = submitLabel === 'Modify' ? <Icons.Edit /> : <Icons.Add />;
 
@@ -41,13 +59,30 @@ const UserForm = ({ initialUser, submitLabel = 'Add', onSubmit, onCancel }) => {
         value={user.UserLastname}
         onChange={(value) => handleChange('UserLastname', value)}
       />
+      <Form.InputText
+        label="Email"
+        value={user.UserEmail}
+        onChange={(value) => handleChange('UserEmail', value)}
+      />
+      <Form.InputText
+        label="Image URL"
+        value={user.UserImageURL}
+        onChange={(value) => handleChange('UserImageURL', value)}
+      />
       <Form.InputSelect
         label="User type"
         prompt="Select user type ..."
         options={roles}
-        value={user.UserUsertypeName}
-        onChange={(value) => handleChange('UserUsertypeName', value)}
+        value={user.UserType}
+        onChange={(value) => handleChange('UserType', value)}
       />
+      {user.UserType === 'Student' && (
+        <Form.InputText
+          label="Academic year"
+          value={user.UserYear ?? ''}
+          onChange={(value) => handleChange('UserYear', value)}
+        />
+      )}
     </Form>
   );
 };
