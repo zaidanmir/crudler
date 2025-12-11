@@ -4,10 +4,7 @@ import Icons from './Icons.js';
 import { Button, ButtonTray } from './Button.js';
 
 const Form = ({children, onSubmit, onCancel, submitLabel, submitIcon}) => {
-  // Initialisations ---------------------------
-  // State -------------------------------------
-  // Handlers ----------------------------------
-  // View --------------------------------------
+
   return (
     <KeyboardAvoidingView style={styles.formContainer}>
 
@@ -25,10 +22,7 @@ const Form = ({children, onSubmit, onCancel, submitLabel, submitIcon}) => {
 };
 
 const InputText = ({label, value, onChange}) => {
-    // Initialisations ---------------------------
-    // State -------------------------------------
-    // Handlers ----------------------------------
-    // View --------------------------------------
+
     return (
         <View style={styles.item}>
         <Text style={styles.itemLabel}>{label}</Text>
@@ -42,10 +36,7 @@ const InputText = ({label, value, onChange}) => {
 };
 
 const InputSelect = ({ label, prompt, options, value, onChange, isLoading=false }) => {
-    // Initialisations ---------------------------
-    // State -------------------------------------
-    // Handlers ----------------------------------
-    // View --------------------------------------
+
     return (
     <View style={styles.item}>
         <Text style={styles.itemLabel}>{label}</Text>

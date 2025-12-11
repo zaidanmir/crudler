@@ -3,14 +3,17 @@ import Screen from '../layout/Screen';
 import ModuleForm from '../entity/modules/ModuleForm.js';
 
 const ModuleModifyScreen = ({ navigation, route }) => {
+  
   // Initialisations -------------------------------
-const {module, onModify} = route.params;
 
-  // State -----------------------------------------
+  const {module, onModify} = route.params;
+
   // Handlers --------------------------------------
 
   const handleCancel = () => navigation.goBack();
+
   // View ------------------------------------------
+  
   return (
     <Screen>
       <ModuleForm originalModule={module} onSubmit={onModify} onCancel = {handleCancel}/>

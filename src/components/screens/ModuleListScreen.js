@@ -10,14 +10,13 @@ import ModuleList from '../entity/modules/ModuleList.js';
 import Screen from '../layout/Screen';
 
 
-
 const ModuleListScreen = ({ navigation }) => {
+  
   // Initialisations ---------------------------
   LogBox.ignoreLogs(['test']);
   const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
   const loggedinUserKey = 'loggedinUser';
   const favouritesKey = 'moduleFavourites';
-  //const graeme = {"UserID":820,"UserFirstname":"Graeme","UserLastname":"Jones","UserEmail":"Ku06696@kingston.ac.uk","UserRegistered":1,"UserLevel":0,"UserYearID":null,"UserUsertypeID":1,"UserImageURL":"https://images.generated.photos/Zx-gNUWFq9NPQDPRLEJQQPWx19QhpKGSAnzIPFUDz3k/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92Ml8w/MDM4MjcxLmpwZw.jpg","UserUsertypeName":"Staff","UserYearName":null};
 
   // State -------------------------------------
 
@@ -38,9 +37,6 @@ const ModuleListScreen = ({ navigation }) => {
   useEffect(() => {
     augmentModulesWithFavourites();
   }, [isLoading]);
-  
-  
-  //AsyncStorage.setItem(loggedinUserKey, JSON.stringify(loggedinUser));
 
   // Handlers ----------------------------------
   

@@ -1,9 +1,7 @@
 import { Pressable, Vibration } from 'react-native';
 
 const Selector = ({ children, onPress, style, pressedStyle }) => {
-  // Initialisations ---------------------------
-  // State -------------------------------------
-  // Handlers ----------------------------------
+
   const handlePress = () => {
     Vibration.vibrate(5);
     if (onPress) {
@@ -11,7 +9,6 @@ const Selector = ({ children, onPress, style, pressedStyle }) => {
     }
   };
 
-  // View --------------------------------------
   return (
     <Pressable
       onPress={handlePress}

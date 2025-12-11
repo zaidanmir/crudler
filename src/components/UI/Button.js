@@ -2,11 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Selector from './Selector';
 
 export const Button = ({ label, icon, onClick, styleLabel, styleButton }) => {
-  // Initialisations ---------------------------
-  // State -------------------------------------
-  // Handlers ----------------------------------
 
-  // View --------------------------------------
   return (
     <Selector 
       onPress={onClick}
@@ -21,10 +17,7 @@ export const Button = ({ label, icon, onClick, styleLabel, styleButton }) => {
 };
 
 export const ButtonTray = ({ children }) => {
-  // Initialisations ---------------------------
-  // State -------------------------------------
-  // Handlers ----------------------------------
-  // View --------------------------------------
+
   return <View style={styles.buttonTray}>{children}</View>;
 };
 

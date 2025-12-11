@@ -15,7 +15,6 @@ const defaultModule = {
     ModuleImageURL: null,
   };
 
-
 const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   
   // Initialisations -------------------------------
@@ -43,10 +42,8 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
 
   // Handlers --------------------------------------
 
-
   const handleChange = (field, value) => setModule({ ...module, [field]: value });
   const handleSubmit = () => onSubmit(module);
-
 
   // View ------------------------------------------
     const submitLabel = originalModule ? 'Modify' : 'Add';
