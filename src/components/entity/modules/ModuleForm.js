@@ -41,14 +41,11 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   const [leaders, , isLeadersLoading] = useLoad(staffEndpoint);
 
 
-
   // Handlers --------------------------------------
 
 
   const handleChange = (field, value) => setModule({ ...module, [field]: value });
   const handleSubmit = () => onSubmit(module);
-
-
 
 
   // View ------------------------------------------

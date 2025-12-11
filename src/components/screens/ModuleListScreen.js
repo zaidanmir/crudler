@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ActivityIndicator, LogBox, Alert, StyleSheet, Text } from 'react-native';
 import useLoad from '../API/useLoad';
 import useStore from '../store/useStore';
@@ -15,24 +16,48 @@ const ModuleListScreen = ({ navigation }) => {
   LogBox.ignoreLogs(["test"]);
   const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
   const loggedinUserkey = 'loggedinUser';
+  const favouritesKey = 'moduleFavourites';
   //const graeme = {"UserID":820,"UserFirstname":"Graeme","UserLastname":"Jones","UserEmail":"Ku06696@kingston.ac.uk","UserRegistered":1,"UserLevel":0,"UserYearID":null,"UserUsertypeID":1,"UserImageURL":"https://images.generated.photos/Zx-gNUWFq9NPQDPRLEJQQPWx19QhpKGSAnzIPFUDz3k/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92Ml8w/MDM4MjcxLmpwZw.jpg","UserUsertypeName":"Staff","UserYearName":null};
 
   // State -------------------------------------
 
-  const [modules, , isLoading, loadModules] = useLoad(modulesEndpoint);
+  const [modules, setModules, isLoading, loadModules] = useLoad(modulesEndpoint);
   const [loggedinUser, saveLoggedinUser] = useStore(loggedinUserKey, null);
+  const [favourites, saveFavourites] = useStore(favouritesKey, []);
 
+  const augmentModulesWithFavourites = () => {
+    const modifyModule = (module) => ({
+      ...module,
+      ModuleFavourite: favourites.includes(module.ModuleID),
+    });
 
+    const augmentedModules = modules.map(modifyModule);
+    setModules(augmentedModules);
+  };
+
+  useEffect (() => {
+    augmentModulesWithFavourites();
+  }, [isLoading]);
   
   
-  useEffect(() => {
-    loadRecord();
-  }, []);
-  
-
   //AsyncStorage.setItem(loggedinUserKey, JSON.stringify(loggedinUser));
 
   // Handlers ----------------------------------
+  
+  const handleFavourite = (module) => {
+    // Update the module state
+    const isFavourite = !module.ModuleFavourite;
+    const updateModule = (item) =>
+      item.ModuleID === module.ModuleID ? { ...item, ModuleFavourite: isFavourite } : item;
+    const updatedModuleList = modules.map(updateModule);
+    setModules(updatedModuleList);
+  
+    // Save the new favourites
+    const updatedFavouritesList = updatedModuleList
+      .filter((item) => item.ModuleFavourite)
+      .map((item) => item.ModuleID);
+    saveFavourites(updatedFavouritesList);
+  };
   
   const onAdd = async (module) => {
     const result = await API.post(modulesEndpoint, module);
@@ -72,6 +97,7 @@ const ModuleListScreen = ({ navigation }) => {
   // View --------------------------------------
   return (
     <Screen>
+      <Text>{favourites.map((favourite) => `$(favourite), `)}</Text>
       <RenderCount />
       {loggedinUser && <Text style={styles.welcome}>Welcome {loggedinUser.UserFirstname}</Text>}
       <RenderCount />
@@ -89,7 +115,7 @@ const ModuleListScreen = ({ navigation }) => {
 
         </View>
       )}
-      <ModuleList modules={modules} onSelect={gotoViewScreen} />
+      <ModuleList modules={modules} onSelect={gotoViewScreen} onFavourite={handleFavourite}/>
     </Screen>
   );
 };
