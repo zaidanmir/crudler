@@ -6,19 +6,21 @@ const Selector = ({ children, onPress, style, pressedStyle }) => {
   // Handlers ----------------------------------
   const handlePress = () => {
     Vibration.vibrate(5);
-    onClick();
+    if (onPress) {
+        onPress();
+    }
   };
 
   // View --------------------------------------
   return (
     <Pressable
-      onLongPress={handlePress}
+      onPress={handlePress}
       style={({ pressed }) => [
-        styles,
+        style,
         pressed && pressedStyle,
       ]}
     >
-        { children }
+      {children}
     </Pressable>
   );
 };

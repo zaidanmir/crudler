@@ -1,23 +1,24 @@
 import React from 'react';
-import { Pressable, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Selector from '../../UI/Selector';
 import Favourite from '../../UI/Favourite';
 
 // ModuleItem component
 
-const handleSelect = () => onSelect(module);
-const handleFavourite = () => onFavourite(module);
-
 const ModuleItem = ({ module, onSelect, onFavourite }) => {
+
+  const handleSelect = () => onSelect(module);
+  const handleFavourite = () => onFavourite(module);
+
   return (
-  <Selector onPress={handleSelect} pressedStyle={styles.pressedItem}>
-    <View style={styles.item}>
-      <Favourite isFavourite={module.ModuleFavourite} onSelect={handleFavourite}/>
-      <Text style={styles.text}>
-        {module.ModuleCode} {module.ModuleName}
-      </Text>
-    </View>
-  </Selector>
+    <Selector onPress={handleSelect} pressedStyle={styles.pressedItem}>
+      <View style={styles.item}>
+        <Favourite isFavourite={module.ModuleFavourite} onSelect={handleFavourite} />
+        <Text style={styles.text}>
+          {module.ModuleCode} {module.ModuleName}
+        </Text>
+      </View>
+    </Selector>
   );
 };
 
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   pressedItem: {
     backgroundColor: 'azure',
-  }
+  },
 });
 
 export default ModuleItem;
