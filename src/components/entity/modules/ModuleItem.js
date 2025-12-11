@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Selector from '../../UI/Selector';
 import Favourite from '../../UI/Favourite';
 
@@ -13,7 +13,7 @@ const ModuleItem = ({ module, onSelect, onFavourite }) => {
   return (
     <Selector onPress={handleSelect} pressedStyle={styles.pressedItem}>
       <View style={styles.item}>
-        <Favourite isFavourite={module.ModuleFavourite} onSelect={handleFavourite}/>
+        <Favourite isFavourite={module.ModuleFavourite} onSelect={handleFavourite} />
         <Text style={styles.text}>
           {module.ModuleCode} {module.ModuleName}
         </Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   pressedItem: {
     backgroundColor: 'azure',
-  }
+  },
 });
 
 export default ModuleItem;

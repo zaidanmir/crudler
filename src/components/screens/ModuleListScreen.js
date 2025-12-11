@@ -13,7 +13,7 @@ import Screen from '../layout/Screen';
 
 const ModuleListScreen = ({ navigation }) => {
   // Initialisations ---------------------------
-  LogBox.ignoreLogs(["test"]);
+  LogBox.ignoreLogs(['test']);
   const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
   const loggedinUserKey = 'loggedinUser';
   const favouritesKey = 'moduleFavourites';
@@ -22,7 +22,7 @@ const ModuleListScreen = ({ navigation }) => {
   // State -------------------------------------
 
   const [modules, setModules, isLoading, loadModules] = useLoad(modulesEndpoint);
-  const [loggedinUser, saveLoggedinUser] = useStore(loggedinUserKey, null);
+  const [loggedinUser] = useStore(loggedinUserKey, null);
   const [favourites, saveFavourites] = useStore(favouritesKey, []);
 
   const augmentModulesWithFavourites = () => {
@@ -35,7 +35,7 @@ const ModuleListScreen = ({ navigation }) => {
     setModules(augmentedModules);
   };
 
-  useEffect (() => {
+  useEffect(() => {
     augmentModulesWithFavourites();
   }, [isLoading]);
   
